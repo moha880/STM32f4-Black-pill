@@ -1,0 +1,11 @@
+21:33:23 **** Incremental Build of configuration Release for project PPPPPP ****
+make all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "PPPPPP.elf"
+   text	   data	    bss	    dec	    hex	filename
+   3388	     52	    272	   3712	    e80	PPPPPP.elf
+Finished building: PPPPPP.siz
+ 
+
+21:33:23 Build Finished (took 921ms)
+

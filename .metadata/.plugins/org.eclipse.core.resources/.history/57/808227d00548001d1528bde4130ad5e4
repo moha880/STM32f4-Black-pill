@@ -1,0 +1,34 @@
+/*
+ * EXTI_prv.h
+ *
+ *  Created on: Aug 30, 2022
+ *      Author: Mahmoud
+ */
+
+#ifndef MCAL_EXTI_EXTI_PRV_H_
+#define MCAL_EXTI_EXTI_PRV_H_
+
+
+
+#define ENABLE 1
+#define DISABLE 0
+
+
+
+
+#define EXTI_BASE_ADD     0x40013C00
+
+typedef struct {
+	u32 IMR;
+	u32 EMR;
+	u32 RTSR;
+	u32 FTSR;
+	u32 SWIER;
+	u32 PR;
+
+}EXTI_MemMap_t;
+
+#define EXTI  ((volatile EXTI_MemMap_t*)(EXTI_BASE_ADD))
+
+
+#endif /* MCAL_EXTI_EXTI_PRV_H_ */

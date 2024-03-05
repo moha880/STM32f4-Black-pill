@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;SPI_ARM/src/MCAL/NVAC&apos; to &apos;NVIC&apos;" description="Rename resource &apos;NVAC&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/MCAL/NVAC" name="NVIC" stamp="1675151963912" updateReferences="true"/>
+</session>

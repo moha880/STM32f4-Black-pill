@@ -1,0 +1,16 @@
+/*
+ * NVIC_prg.c
+ *
+ *  Created on: Sep 26, 2022
+ *      Author: Ibrahem
+ */
+
+
+
+#include"../../LIB/BIT_MATH.h"
+#include"../../LIB/STD_TYPES.h"
+
+#include"NVIC_cfg.h"
+#include"NVIC_int.h"
+#include"NVIC_prv.h"
+

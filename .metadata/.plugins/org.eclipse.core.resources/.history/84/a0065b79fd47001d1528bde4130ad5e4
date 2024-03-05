@@ -1,0 +1,45 @@
+
+
+#include "LIB/STD_TYPES.h"
+#include "LIB/BIT_MATH.h"
+#include "MCAL/RCC/RCC_Int.h"
+#include "MCAL/GPIO/GPIO_int.h"
+#include "MCAL/STK/STK_int.h"
+
+
+u8 onORoff = 0;
+
+void toggle(void){
+	if(!onORoff){
+		MGPIO_vSetPinVal(GPIO_PORTA, GPIO_PIN0, GPIO_HIGH);
+		onORoff=1;
+	}else{
+		MGPIO_vSetPinVal(GPIO_PORTA, GPIO_PIN0, GPIO_LOW);
+		onORoff=0;
+	}
+
+}
+
+
+int main(){
+	MRCC_vInit();
+	MSTK_voidInit();
+	MRCC_vEnableClock(RCC_AHB1,RCC_EN_GPIOA);
+
+
+	MGPIO_vSetPinMode(GPIO_PORTA, GPIO_PIN0, GPIO_MODE_OUTPUT);
+	MGPIO_vSetPinOutputSpeed(GPIO_PORTA, GPIO_PIN0,GPIO_SPEED_LOW);
+	MGPIO_vSetPinOutputType(GPIO_PORTA, GPIO_PIN0, GPIO_PUSHPULL);
+
+	//MNVIC_voidEnablePeripheral(6);
+
+
+	;
+	while(1){
+		//toggle();
+		//MSTK_voidSetBusyWait(10000000);
+
+		MSTK_vSetIntervalSingle(10000000, toggle);
+	}
+}
+

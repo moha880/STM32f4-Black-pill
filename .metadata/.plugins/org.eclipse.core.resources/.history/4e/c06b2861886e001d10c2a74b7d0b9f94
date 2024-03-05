@@ -1,0 +1,48 @@
+/*
+ * NVIC_prg.c
+ *
+ *  Created on: Sep 26, 2022
+ *      Author: Ibrahem
+ */
+
+
+
+#include"../../LIB/BIT_MATH.h"
+#include"../../LIB/STD_TYPES.h"
+
+#include"NVIC_cfg.h"
+#include"NVIC_int.h"
+#include"NVIC_prv.h"
+
+
+void MNVIC_vEnableInterrupt(u32 A_u32IntId){
+
+	NVIC -> ISER[ A_u32IntId / 32 ] = 1<<(A_u32IntId%32);
+}
+void MNVIC_vDisableInterrupt(u32 A_u32IntId){
+	NVIC -> ICER[ A_u32IntId / 32 ] = 1<<(A_u32IntId%32);
+
+}
+void MNVIC_vSetPending(u32 A_u32IntId){
+	NVIC -> ISPR[ A_u32IntId / 32 ] = 1<<(A_u32IntId%32);
+
+}
+void MNVIC_vClrPending(u32 A_u32IntId){
+	NVIC -> ICPR[ A_u32IntId / 32 ] = 1<<(A_u32IntId%32);
+
+}
+u8 MNVIC_u8GetStatus(u32 A_u32IntId){
+
+	u8 L_u8Status=GET_BIT(NVIC -> IAPR[ A_u32IntId / 32 ],(A_u32IntId%32));
+
+	return L_u8Status;
+
+}
+
+void MNVIC_vPriorityCfg(u8 A_){
+
+
+}
+
+
+

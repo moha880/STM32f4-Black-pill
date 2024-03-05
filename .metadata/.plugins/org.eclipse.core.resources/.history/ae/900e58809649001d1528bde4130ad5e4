@@ -1,0 +1,58 @@
+/*
+ * DMA_prv.h
+ *
+ *  Created on: Oct 11, 2022
+ *      Author: Ibrahem
+ */
+
+#ifndef MCAL_DMA_DMA_PRV_H_
+#define MCAL_DMA_DMA_PRV_H_
+
+#define DMA_BASE_ADDR		0x40020000
+
+typedef struct{
+
+	u32 ISR;
+	u32 IFCR;
+	u32 CCR1;
+	u32 CNDTR1;
+	u32 CPAR1;
+	u32 CMAR1;
+	u32 Reserved;
+	u32 CCR2;
+	u32 CNDTR2;
+	u32 CPAR2;
+	u32 CMAR2;
+	u32 Reserved;
+	u32 CCR3;
+	u32 CNDTR3;
+	u32 CPAR3;
+	u32 CMAR3;
+	u32 Reserved;
+	u32 CCR4;
+	u32 CNDTR4;
+	u32 CPAR4;
+	u32 CMAR4;
+	u32 Reserved;
+	u32 CCR5;
+	u32 CNDTR5;
+	u32 CPAR5;
+	u32 CMAR5;
+	u32 Reserved;
+	u32 CCR6;
+	u32 CNDTR6;
+	u32 CPAR6;
+	u32 CMAR6;
+	u32 Reserved;
+	u32 CCR7;
+	u32 CNDTR7;
+	u32 CPAR7;
+	u32 CMAR7;
+	u32 Reserved;
+
+}DMA_MemMap_t;
+
+#define DMA			((volatile *DMA_MemMap_t)(DMA_BASE_ADDR))
+
+
+#endif /* MCAL_DMA_DMA_PRV_H_ */

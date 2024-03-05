@@ -1,0 +1,15 @@
+/*
+ * TFT_cfg.h
+ *
+ *  Created on: Sep 29, 2022
+ *      Author: mazen
+ */
+
+#ifndef HAL_TFT_TFT_CFG_H_
+#define HAL_TFT_TFT_CFG_H_
+
+
+
+
+
+#endif /* HAL_TFT_TFT_CFG_H_ */

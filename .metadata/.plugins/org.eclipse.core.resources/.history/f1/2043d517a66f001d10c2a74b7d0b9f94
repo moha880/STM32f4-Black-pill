@@ -1,0 +1,25 @@
+/*
+ * NVIC_int.h
+ *
+ *  Created on: Sep 26, 2022
+ *      Author: Ibrahem
+ */
+
+#ifndef MCAL_NVIC_NVIC_INT_H_
+#define MCAL_NVIC_NVIC_INT_H_
+
+
+
+
+void MNVIC_vEnableInterrupt(u8 A_u8IntId);
+void MNVIC_vDisableInterrupt(u8 A_u8IntId);
+void MNVIC_vSetPending(u8 A_u8IntId);
+void MNVIC_vClrPending(u8 A_u8IntId);
+
+u8 MNVIC_u8GetStatus(u8 A_u8IntId);
+
+void MNVIC_vClrPending(u8 A_u8IntId);
+
+void MNVIC_vPriorityCfg(u8 A_u8PriGroup);
+
+#endif /* MCAL_NVIC_NVIC_INT_H_ */

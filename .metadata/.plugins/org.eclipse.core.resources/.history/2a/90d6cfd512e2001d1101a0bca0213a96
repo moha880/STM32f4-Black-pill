@@ -1,0 +1,108 @@
+/*
+ * SPI_prg.c
+ *
+ *  Created on: Jan 31, 2023
+ *      Author: Ibrahem
+ */
+
+
+#include "../../LIB/BIT_MATH.h"
+#include"../../LIB/STD_TYPES.h"
+#include"../../MCAL/GPIO/GPIO_int.h"
+
+#include "../RCC/RCC_int.h"
+#include "../RCC/RCC_cfg.h"
+
+#include"SPI_prv.h"
+#include"SPI_int.h"
+#include"SPI_cfg.h"
+
+void MSPI_vInit(MSPI_Config_t* pSPIconfig){
+	MRCC_vInit();
+	MRCC_vEnableClock(RCC_APB2, RCC_EN_SPI1);
+	MRCC_vEnableClock(RCC_AHB1, RCC_EN_GPIOA);
+
+	u16 SCR_config=0;
+	//
+	//	SCR_config |=(1<<(BIDIMODE));
+	//	SCR_config |=(1<<(BIDIMODE));
+	//	SCR_config |=(1<<(BIDIMODE));
+	//	SCR_config |=(1<<(BIDIMODE));
+	//	SCR_config |=(1<<(BIDIMODE));
+	//
+	MGPIO_vInit(&SP1[1]);
+	MGPIO_vInit(&SP1[2]);
+	MGPIO_vInit(&SP1[0]);
+	SCR_config |=  ( pSPIconfig.SPI_DeviceMode << MSTR) ;
+
+
+	if (pSPIconfig.SPI_BusConfig == SPI_BUS_CONFIG_FD) {
+
+		// BIDIMODE should be cleared
+		SCR_config &= ~( 1 << BIDIMODE) ;
+
+	}else if (pSPIconfig.SPI_BusConfig == SPI_BUS_CONFIG_HD) {
+
+		// BIDIMODE should be set
+		SCR_config |=  ( 1 << BIDIMODE) ;
+
+	}else if (pSPIconfig.SPI_BusConfig == SPI_BUS_CONFIG_SIMPLEX_RXONLY) {
+
+		// BIDIMODE should be cleared ;
+		SCR_config &= ~( 1 << BIDIMODE) ;
+
+		// RXOONLY bit should be set
+		SCR_config |=  ( 1 << RXONLY) ;
+
+	}
+
+	// configure spi clock speed
+
+	// configure spi dff mode
+	SCR_config |= (pSPIconfig.SPI_DFF << DFF) ;
+
+	// configure spi cpol
+	SCR_config |= (pSPIconfig.SPI_CPOL << CPOL) ;
+
+	// configure spi cpha
+	SCR_config |= (pSPIconfig.SPI_CPHA << CPHA) ;
+
+	// configure spi ssm
+	SCR_config |= (pSPIconfig.SPI_SSM << SSM) ;
+
+
+	SCR_config = (SCR_config &~(0b111<<BR)) | (pSPIconfig.SPI_SclkSpeed<<BR) ;
+	CLR_BIT(SPI1->CR1, LSBFIRST);
+
+
+	SET_BIT(SCR_config, SSM);
+	SET_BIT(SCR_config, SSI);
+
+	/* Data Format */
+	CLR_BIT(SCR_config, DFF);
+
+	/* ENABLE SPI1 PERIPHERAL */
+	SET_BIT(SCR_config, SPE);
+
+
+
+
+	SPI1->CR1=SCR_config;
+}
+
+u32   MSPI_u8Transmit__receive( u32 A_u16Data){
+	u32 l_data=0;
+
+	SPI1->DR=A_u16Data;
+
+	while(GET_BIT(SPI1->SR, 7)==1);
+	l_data= SPI1->DR;
+	return l_data;
+
+}
+//void   MSPI_u8Transmit(u8 A_u8Data){
+//
+//}
+//u8   MSPI_u8receive(void){
+//
+//}

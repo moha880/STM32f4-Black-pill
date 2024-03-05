@@ -1,0 +1,11 @@
+22:46:18 **** Incremental Build of configuration Release for project 04-EXTI ****
+make all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "04-EXTI.elf"
+   text	   data	    bss	    dec	    hex	filename
+   3264	     52	    264	   3580	    dfc	04-EXTI.elf
+Finished building: 04-EXTI.siz
+ 
+
+22:46:19 Build Finished (took 872ms)
+

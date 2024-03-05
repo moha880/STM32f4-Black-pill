@@ -1,0 +1,25 @@
+20:28:05 **** Incremental Build of configuration Release for project SPI_ARM ****
+make all 
+Building file: ../src/HAL/TFT/TFT_prg.c
+Invoking: Cross ARM GNU C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -Wall -Wextra  -g -DNDEBUG -DSTM32F401xC -DUSE_HAL_DRIVER -DHSE_VALUE=18000000 -I"../include" -I"../system/include" -I"../system/include/cmsis" -I"../system/include/stm32f4-hal" -std=gnu11 -MMD -MP -MF"src/HAL/TFT/TFT_prg.d" -MT"src/HAL/TFT/TFT_prg.o" -c -o "src/HAL/TFT/TFT_prg.o" "../src/HAL/TFT/TFT_prg.c"
+Finished building: ../src/HAL/TFT/TFT_prg.c
+ 
+Building target: SPI_ARM.elf
+Invoking: Cross ARM GNU C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -Wall -Wextra  -g -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"SPI_ARM.map" --specs=nano.specs -o "SPI_ARM.elf"  ./system/src/stm32f4-hal/stm32f4xx_hal.o ./system/src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/src/stm32f4-hal/stm32f4xx_hal_rcc.o  ./system/src/newlib/_cxx.o ./system/src/newlib/_exit.o ./system/src/newlib/_sbrk.o ./system/src/newlib/_startup.o ./system/src/newlib/_syscalls.o ./system/src/newlib/assert.o  ./system/src/diag/Trace.o ./system/src/diag/trace_impl.o  ./system/src/cortexm/_initialize_hardware.o ./system/src/cortexm/_reset_hardware.o ./system/src/cortexm/exception_handlers.o  ./system/src/cmsis/system_stm32f4xx.o ./system/src/cmsis/vectors_stm32f401xc.o  ./src/MCAL/STK/STK_prg.o  ./src/MCAL/SPI/SPI_cfg.o ./src/MCAL/SPI/SPI_prg.o  ./src/MCAL/RCC/RCC_prg.o  ./src/MCAL/NVIC/NVIC_prg.o  ./src/MCAL/GPIO/GPIO_prg.o  ./src/MCAL/EXTI/EXTI_prg.o  ./src/HAL/TFT/TFT_prg.o  ./src/HAL/SSD/SSD_prg.o  ./src/HAL/S2P/S2P_prg.o ./src/HAL/S2P/s2p_cfg.o  ./src/HAL/LEDMTX/LEDMTX_cfg.o ./src/HAL/LEDMTX/LEDMTX_prg.o  ./src/_initialize_hardware.o ./src/main.o ./src/stm32f4xx_hal_msp.o   
+Finished building target: SPI_ARM.elf
+ 
+Invoking: Cross ARM GNU Create Flash Image
+arm-none-eabi-objcopy -O ihex "SPI_ARM.elf"  "SPI_ARM.hex"
+Finished building: SPI_ARM.hex
+ 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "SPI_ARM.elf"
+   text	   data	    bss	    dec	    hex	filename
+   3404	     68	    272	   3744	    ea0	SPI_ARM.elf
+Finished building: SPI_ARM.siz
+ 
+
+20:28:05 Build Finished (took 789ms)
+

@@ -1,0 +1,11 @@
+19:47:31 **** Incremental Build of configuration Release for project 05-SYSTIC ****
+make all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "05-SYSTIC.elf"
+   text	   data	    bss	    dec	    hex	filename
+   2704	     52	    264	   3020	    bcc	05-SYSTIC.elf
+Finished building: 05-SYSTIC.siz
+ 
+
+19:47:32 Build Finished (took 563ms)
+

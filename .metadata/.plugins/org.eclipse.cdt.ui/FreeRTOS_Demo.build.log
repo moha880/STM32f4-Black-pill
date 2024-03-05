@@ -1,0 +1,11 @@
+17:59:55 **** Incremental Build of configuration Release for project FreeRTOS_Demo ****
+make all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "FreeRTOS_Demo.elf"
+   text	   data	    bss	    dec	    hex	filename
+   3998	     52	    404	   4454	   1166	FreeRTOS_Demo.elf
+Finished building: FreeRTOS_Demo.siz
+ 
+
+17:59:56 Build Finished (took 438ms)
+

@@ -1,0 +1,20 @@
+/*
+ * EXTI_Cfg.h
+ *
+ *  Created on: Aug 30, 2022
+ *      Author: Mahmoud
+ */
+
+#ifndef MCAL_EXTI_EXTI_CFG_H_
+#define MCAL_EXTI_EXTI_CFG_H_
+
+
+#define EXTI_LINE0_EN  ENABLE
+#define EXTI_LINE0_TRIGGER  EXTI_RISING
+
+
+#define EXTI_LINE1_EN  DISABLE
+#define EXTI_LINE0_TRIGGER  EXTI_RISING
+
+
+#endif /* MCAL_EXTI_EXTI_CFG_H_ */

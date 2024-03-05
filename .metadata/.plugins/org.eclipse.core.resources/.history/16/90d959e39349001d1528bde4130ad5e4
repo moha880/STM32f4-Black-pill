@@ -1,0 +1,12 @@
+/*
+ * DMA_prg.c
+ *
+ *  Created on: Oct 11, 2022
+ *      Author: Ibrahem
+ */
+#include"DMA_cfg.h"
+#include"DMA_int.h"
+#include"DMA_prv.h"
+
+
+

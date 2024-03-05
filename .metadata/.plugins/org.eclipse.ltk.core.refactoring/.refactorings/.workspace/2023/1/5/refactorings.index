@@ -1,0 +1,4 @@
+1675149242377	Delete resource 'SPI_ARM/SPI'
+1675156066672	Delete resource 'SPI_ARM/src/MCAL/NVIC'
+1675172658294	Delete resource 'SPI_ARM/src/MCAL/GPIO'
+1675197971698	Delete resource '06-LedMatrix/src/MCAL/GPIO'

@@ -1,0 +1,11 @@
+17:59:55 **** Incremental Build of configuration Release for project 06-LedMatrix ****
+make all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "06-LedMatrix.elf"
+   text	   data	    bss	    dec	    hex	filename
+   3224	     60	    272	   3556	    de4	06-LedMatrix.elf
+Finished building: 06-LedMatrix.siz
+ 
+
+17:59:55 Build Finished (took 678ms)
+

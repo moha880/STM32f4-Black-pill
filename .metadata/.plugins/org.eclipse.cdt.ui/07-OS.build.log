@@ -1,0 +1,11 @@
+20:29:43 **** Incremental Build of configuration Release for project 07-OS ****
+make all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "07-OS.elf"
+   text	   data	    bss	    dec	    hex	filename
+   3870	    116	    456	   4442	   115a	07-OS.elf
+Finished building: 07-OS.siz
+ 
+
+20:29:44 Build Finished (took 664ms)
+

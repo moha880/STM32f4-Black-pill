@@ -1,0 +1,77 @@
+/*
+ * SPI_prg.c
+ *
+ *  Created on: Sep 27, 2022
+ *      Author: mazen
+ */
+
+
+
+
+#include "../../LIB/STD_TYPES.h"
+#include "../../LIB/BIT_MATH.h"
+
+#include "../../MCAL/GPIO/GPIO_int.h"
+
+
+#include "SPI_int.h"
+#include "SPI_prv.h"
+#include "SPI_cfg.h"
+
+
+void MSPI_vInit(void)
+{
+	/* 1- SPI Mode: CPHA and CPOL */
+	SET_BIT(SPI1->CR1, CPHA);
+	SET_BIT(SPI1->CR1, CPOL);
+	/* 2- Select Master/Slave Mode  */
+	SET_BIT(SPI1->CR1, MSTR);
+
+	/* 3- Select Baud Rate Prescaler */
+	SPI1->CR1 = (SPI1->CR1 &~(0b111<<3)) | (SPI1_BAUDRATE <<3) ;
+
+	/* 4- MSB/LSB first */
+	CLR_BIT(SPI1->CR1, 7);
+
+	/* 5- ENABLE SPI PERIPHERAL */
+	SET_BIT(SPI1->CR1, 6);
+
+	/* 6- sELECT Software slave managment */
+	SET_BIT(SPI1->CR1, 9); //SSM
+	SET_BIT(SPI1->CR1, 8); //SSI
+
+	/* 7- Data Format */
+	CLR_BIT(SPI1->CR1, 11); //DFF
+
+	MGPIO_Config_t MOSI = {
+GPIO_PORTA, GPIO_PIN7, GPIO_MODE_ALTFUN, GPIO_SPEED_VHIGH, GPIO_OTYPE_PUSHPULL, GPIO_INPUT_NO_PULL, GPIO_AF_5
+	};
+
+	MGPIO_Config_t MISO = {
+GPIO_PORTA, GPIO_PIN6, GPIO_MODE_ALTFUN, GPIO_SPEED_VHIGH, GPIO_OTYPE_PUSHPULL, GPIO_INPUT_NO_PULL, GPIO_AF_5
+
+	};
+
+	MGPIO_Config_t SCK = {
+GPIO_PORTA, GPIO_PIN5, GPIO_MODE_ALTFUN, GPIO_SPEED_VHIGH, GPIO_OTYPE_PUSHPULL, GPIO_INPUT_NO_PULL, GPIO_AF_5
+
+	};
+
+	MGPIO_VInit(&MISO);
+	MGPIO_VInit(&MOSI);
+	MGPIO_VInit(&SCK);
+
+
+
+}
+
+u16  MSPI_u16Transceive(u16 A_u16Data)
+{
+	SPI1->DR = A_u16Data ;
+
+	while(GET_BIT(SPI1->SR, 7) == 1){}
+
+
+	return SPI1->DR ;
+
+}

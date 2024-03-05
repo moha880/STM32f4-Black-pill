@@ -1,0 +1,34 @@
+/*
+ * EXTI_Int.h
+ *
+ *  Created on: Aug 30, 2022
+ *      Author: Mahmoud
+ */
+
+#ifndef MCAL_EXTI_EXTI_INT_H_
+#define MCAL_EXTI_EXTI_INT_H_
+
+
+
+#define EXTI_FALLING  	1
+#define EXTI_RISING   	2
+#define EXTI_ONCHANGE  	3
+
+#define EXTI_LINE0      0
+
+typedef struct {
+	u8 LineNo;
+	u8 Trigger;
+}EXTI_config_t;
+
+void MEXTI_voidInit(void);
+void MEXTI_voidEnableLine(u8 A_u8Trigger, u8 A_u8LineNo);
+void MEXTI_voidDisableLine(u8 A_u8LineNo);
+
+void MEXTI_voidSoftwareTriggre(u8 A_u8LineNo);
+void MEXT_voidSetTrigger(u8 A_u8Trigger, u8 A_u8LineNo);
+
+void MEXTI_voidSetCallback(u8 A_u8LineNo ,void (*A_voidfptr)(void));
+
+
+#endif /* MCAL_EXTI_EXTI_INT_H_ */

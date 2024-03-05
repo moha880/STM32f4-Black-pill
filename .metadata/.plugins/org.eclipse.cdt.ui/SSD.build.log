@@ -1,0 +1,11 @@
+22:42:39 **** Incremental Build of configuration Debug for project SSD ****
+make all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "SSD.elf"
+   text	   data	    bss	    dec	    hex	filename
+   7989	    228	    416	   8633	   21b9	SSD.elf
+Finished building: SSD.siz
+ 
+
+22:42:41 Build Finished (took 1s.594ms)
+

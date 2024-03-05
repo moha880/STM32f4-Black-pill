@@ -1,0 +1,181 @@
+/*
+ * TFT_prg.c
+ *
+ *  Created on: Sep 29, 2022
+ *      Author: mazen
+ */
+
+#include "../../LIB/STD_TYPES.h"
+
+#include "../../MCAL/GPIO/GPIO_int.h"
+#include "../../MCAL/SPI/SPI_int.h"
+#include "../../MCAL/STK/STK_int.h"
+
+#include "TFT_int.h"
+#include "TFT_prv.h"
+#include "TFT_cfg.h"
+
+MGPIO_Config_t TFT_A0_pin = {
+	.Port = GPIO_PORTA,
+	.Pin  = GPIO_PIN1,
+	.Mode = GPIO_MODE_OUTPUT,
+	.OutputType = GPIO_OTYPE_PUSHPULL,
+	.OutputSpeed = GPIO_SPEED_VHIGH,
+};
+
+MGPIO_Config_t TFT_RST_pin = {
+	.Port = GPIO_PORTA,
+	.Pin  = GPIO_PIN0,
+	.Mode = GPIO_MODE_OUTPUT,
+	.OutputType = GPIO_OTYPE_PUSHPULL,
+	.OutputSpeed = GPIO_SPEED_VHIGH,
+};
+
+
+static u16 current_XPos_start;
+static u16 current_XPos_end;
+static u16 current_YPos_start;
+static u16 current_YPos_end;
+
+
+
+void write_cmd(u16 cmd)
+{
+	MGPIO_vSetPinVal(TFT_A0_pin.Port,TFT_A0_pin.Pin, GPIO_LOW );
+	MSPI_u16Transceive(cmd);
+}
+
+void write_data(u16 data)
+{
+	MGPIO_vSetPinVal(TFT_A0_pin.Port,TFT_A0_pin.Pin, GPIO_HIGH );
+	MSPI_u16Transceive(data);
+}
+
+void reset_sequence(void)
+{
+	MGPIO_vSetPinVal(TFT_RST_pin.Port, TFT_RST_pin.Pin, GPIO_HIGH);
+	MSTK_vSetBusyWait(16000 /* Microseconds*/);
+	MGPIO_vSetPinVal(TFT_RST_pin.Port, TFT_RST_pin.Pin, GPIO_LOW);
+	MSTK_vSetBusyWait(63 /* Microseconds*/);
+	MGPIO_vSetPinVal(TFT_RST_pin.Port, TFT_RST_pin.Pin, GPIO_HIGH);
+	MSTK_vSetBusyWait(16000 /* Microseconds*/);
+	MGPIO_vSetPinVal(TFT_RST_pin.Port, TFT_RST_pin.Pin, GPIO_LOW);
+	MSTK_vSetBusyWait(16000 /* Microseconds*/);
+	MGPIO_vSetPinVal(TFT_RST_pin.Port, TFT_RST_pin.Pin, GPIO_HIGH);
+	MSTK_vSetBusyWait(19200000 /* Milli - seconds*/);
+
+
+
+}
+
+
+void TFT_vInit(void)
+{
+	/* 1- Set pin directions */
+	MGPIO_vInit(&TFT_A0_pin);
+	MGPIO_vInit(&TFT_RST_pin);
+
+	MSPI_vInit();
+	MSTK_vInit();
+
+	/* 2- reset sequence */
+	reset_sequence();
+
+	/* 3- send SLPOUT command (0x11) */
+	write_cmd(0x11);
+
+	/* 4- wait 15 ms   */
+	MSTK_vSetBusyWait(15000);
+
+	/* 5- send Color Mode Command -> RGB565  */
+	write_cmd(0x3A);
+	write_data(0x05);
+
+	/* 6- DISPON (0x29)  */
+	write_cmd(0x29);
+}
+void TFT_vShowImage(u16 A_pu16img[], u32 A_u32ImgSize)
+{
+	/* 1- set X position */
+	write_cmd(0x2A);
+	// xstart: 0, xEnd: 127
+	write_data(0);
+	write_data(0);
+	write_data(0);
+	write_data(127);
+
+	/* 2- set Y position */
+	write_cmd(0x2B);
+	// ystart: , yEnd: 159
+	write_data(0);
+	write_data(0);
+	write_data(0);
+	write_data(159);
+
+	/* 3- send image data */
+	write_cmd(0x2C);
+	for(int i=0; i<A_u32ImgSize; i++)
+	{
+		write_data(A_pu16img[i] >> 8); // Most-Significatn byte
+		write_data(A_pu16img[i] & 0x00FF); // Least-Significant Byte
+	}
+}
+
+void TFT_vSetXPos(u16 xStart, u16 xEnd)
+{
+	current_XPos_start = xStart;
+	current_XPos_end = xEnd;
+	/* 1- set X position */
+	write_cmd(0x2A);
+	// xstart: 0, xEnd: 127
+	write_data(0);
+	write_data(xStart);
+	write_data(0);
+	write_data(xEnd);
+}
+void TFT_vSetYPos(u16 yStart, u16 yEnd)
+{
+	current_YPos_start = yStart;
+	current_YPos_end  = yEnd ;
+	/* 2- set Y position */
+	write_cmd(0x2B);
+	// ystart: 0, yEnd: 159
+	write_data(0);
+	write_data(yStart);
+	write_data(0);
+	write_data(yEnd);
+}
+
+void TFT_vFillRectangle(Color_t Color)
+{
+	u32 No_pixels = (current_XPos_end-current_XPos_start)*(current_YPos_end-current_YPos_start);
+	/* 3- send image data */
+	write_cmd(0x2C);
+	for(int i=0; i<No_pixels; i++)
+	{
+		write_data(Color.Color >> 8); // Most-Significatn byte
+		write_data(Color.Color & 0x00FF); // Least-Significant Byte
+	}
+}
+void TFT_vFillBackground(Color_t Color)
+{
+	/* 1- set X position */
+		write_cmd(0x2A);
+		// xstart: 0, xEnd: 127
+		write_data(0);
+		write_data(0);
+		write_data(0);
+		write_data(127);
+
+		/* 2- set Y position */
+		write_cmd(0x2B);
+		// ystart: , yEnd: 159
+		write_data(0);
+		write_data(0);
+		write_data(0);
+		write_data(159);
+
+		TFT_vFillRectangle(Color);
+
+}
+

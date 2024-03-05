@@ -1,0 +1,117 @@
+/*
+ * EXTI_Prog.c
+ *
+ *  Created on: Aug 30, 2022
+ *      Author: Mahmoud
+ */
+#include "../../LIB/STD_TYPES.h"
+#include "../../LIB/BIT_MATH.h"
+
+
+#include "EXTI_Prv.h"
+#include "EXTI_Int.h"
+#include "EXTI_Cfg.h"
+
+#include "SYSCFG_Prv.h"
+
+static void (*EXTI_LINE0_CALLBACK)(void);
+
+
+
+void SYSCFG_voidSetExtiPort(u8 A_u8LineNo, u8 A_u8PortNo){
+	SYSCFG->EXTICR[A_u8LineNo/4]  &= ~((0b1111) <<((A_u8LineNo%4 )*4));
+	SYSCFG->EXTICR[A_u8LineNo/4]  |= (A_u8PortNo) <<((A_u8LineNo%4 )*4);
+}
+
+
+void MEXTI_voidInit(void){
+
+	EXTI->IMR = 0;
+	EXTI->IMR |= (EXTI_LINE0_EN << 0)|
+				 (EXTI_LINE1_EN << 1);
+				 /*and SOOOOO OON*/
+
+#if EXTI_LINE0_TRIGGER == EXTI_RISING
+	SET_BIT(EXTI->RTSR, 0);
+#endif
+	// clear all flags
+	EXTI->PR = 0xffffffff;
+
+
+}
+void MEXTI_voidEnableLine(u8 A_u8Trigger, u8 A_u8LineNo){
+
+	if(A_u8LineNo < 16){
+		SET_BIT(EXTI->IMR, A_u8LineNo);
+		switch(A_u8Trigger){
+		case EXTI_RISING:
+			SET_BIT(EXTI->RTSR, A_u8LineNo);
+			CLR_BIT(EXTI->FTSR, A_u8LineNo );
+			break;
+		case EXTI_FALLING:
+				SET_BIT(EXTI->FTSR, A_u8LineNo);
+				CLR_BIT(EXTI->RTSR, A_u8LineNo );
+				break;
+		case EXTI_ONCHANGE:
+				SET_BIT(EXTI->FTSR, A_u8LineNo);
+				SET_BIT(EXTI->RTSR, A_u8LineNo );
+				break;
+		}
+	}
+
+}
+void MEXTI_voidDisableLine(u8 A_u8LineNo){
+
+	if(A_u8LineNo < 16){
+			CLR_BIT(EXTI->IMR, A_u8LineNo);
+	}
+}
+
+void MEXTI_voidSoftwareTriggre(u8 A_u8LineNo){
+	if(A_u8LineNo < 16){
+			SET_BIT(EXTI->SWIER, A_u8LineNo);
+	}
+}
+void MEXT_voidSetTrigger(u8 A_u8Trigger, u8 A_u8LineNo){
+	if(A_u8LineNo < 16){
+			switch(A_u8Trigger){
+			case EXTI_RISING:
+				SET_BIT(EXTI->RTSR, A_u8LineNo);
+				CLR_BIT(EXTI->FTSR, A_u8LineNo );
+				break;
+			case EXTI_FALLING:
+					SET_BIT(EXTI->FTSR, A_u8LineNo);
+					CLR_BIT(EXTI->RTSR, A_u8LineNo );
+					break;
+			case EXTI_ONCHANGE:
+					SET_BIT(EXTI->FTSR, A_u8LineNo);
+					SET_BIT(EXTI->RTSR, A_u8LineNo );
+					break;
+			}
+		}
+}
+
+
+
+void MEXTI_voidSetCallback(u8 A_u8LineNo ,void (*A_voidfptr)(void)){
+
+	switch(A_u8LineNo){
+	case EXTI_LINE0:
+		EXTI_LINE0_CALLBACK = A_voidfptr;
+	}
+}
+
+
+
+
+void EXTI0_IRQHandler(void){
+	if(EXTI_LINE0_CALLBACK != NULL)
+		EXTI_LINE0_CALLBACK();
+
+	SET_BIT(EXTI->PR, 0);
+}
+
+
+
+
+

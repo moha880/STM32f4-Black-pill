@@ -1,0 +1,44 @@
+/*
+ * TFT_int.h
+ *
+ *  Created on: Sep 29, 2022
+ *      Author: mazen
+ */
+
+#ifndef HAL_TFT_TFT_INT_H_
+#define HAL_TFT_TFT_INT_H_
+
+typedef struct
+{
+	u16 Blu:5;
+	u16 Grn:6;
+	u16 Red:5;
+}Pixel_Color;
+
+typedef union
+{
+	Pixel_Color pixel;
+	u16         Color;
+}Color_t;
+
+
+
+
+void TFT_vInit(void);
+void TFT_vShowImage(u16 A_pu16img[], u32 A_u32ImgSize);
+
+void TFT_vSetXPos(u16 xStart, u16 xEnd);
+void TFT_vSetYPos(u16 yStart, u16 yEnd);
+void TFT_vFillRectangle(Color_t Color);
+void TFT_vFillBackground(Color_t Color);
+
+/************ Advanced ***********/
+void TFT_vDrawLine(u16 x1, u16 y1, u16 x2, u16 y2);
+void TFT_vDrawRectangle(/*4 lines*/);
+void TFT_vDrawTriangle(/*3 Lines */);
+void TFT_vDrawCircle(u16 r, u16 c1, u16 c2);
+
+
+
+
+#endif /* HAL_TFT_TFT_INT_H_ */

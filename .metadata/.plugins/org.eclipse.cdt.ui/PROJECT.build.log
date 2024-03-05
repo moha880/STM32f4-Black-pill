@@ -1,0 +1,11 @@
+21:33:24 **** Incremental Build of configuration Release for project PROJECT ****
+make all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "PROJECT.elf"
+   text	   data	    bss	    dec	    hex	filename
+   3380	     52	    280	   3712	    e80	PROJECT.elf
+Finished building: PROJECT.siz
+ 
+
+21:33:25 Build Finished (took 1s.105ms)
+

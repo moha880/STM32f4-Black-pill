@@ -1,0 +1,11 @@
+12:32:39 **** Build of configuration Release for project 01-halloArm ****
+make all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "01-halloArm.elf"
+   text	   data	    bss	    dec	    hex	filename
+   3400	     52	    268	   3720	    e88	01-halloArm.elf
+Finished building: 01-halloArm.siz
+ 
+
+12:32:40 Build Finished (took 768ms)
+

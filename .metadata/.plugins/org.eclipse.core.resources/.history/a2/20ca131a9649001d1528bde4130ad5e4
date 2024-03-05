@@ -1,0 +1,20 @@
+/*
+ * DMA_prv.h
+ *
+ *  Created on: Oct 11, 2022
+ *      Author: Ibrahem
+ */
+
+#ifndef MCAL_DMA_DMA_PRV_H_
+#define MCAL_DMA_DMA_PRV_H_
+
+#define DMA_BASE_ADDR		0X40020000
+
+typedef struct{
+
+}DMA_MemMap_t;
+
+#define DMA			((volatile *DMA_MemMap_t)(DMA_BASE_ADDR))
+
+
+#endif /* MCAL_DMA_DMA_PRV_H_ */

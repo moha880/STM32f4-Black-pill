@@ -1,0 +1,75 @@
+///*
+// * STK_int.h
+// *
+// *  Created on: Sep 11, 2022
+// *      Author: Mahmoud
+// */
+//
+//#ifndef MCAL_STK_STK_INT_H_
+//#define MCAL_STK_STK_INT_H_
+//
+//
+//void MSTK_voidInit(void);
+//
+//void MSTK_voidStartTimer(u32 A_u32LoadValue);
+//
+//void MSTK_voidStopTimer(void);
+//
+//
+//
+//void MSTK_voidSetBusyWait(u32 A_u32Ticks);
+//
+//
+//void MSTK_vSetIntervalSingle(u32 A_u32Ticks, void(*CallbackFunc)(void));
+//
+//void MSTK_vSetIntervalPeriodic(u32 A_u32Ticks, void(*CallbackFunc)(void));
+//
+//
+//u32 MSTK_u32GetElapsedTime(void);
+//
+//u32 MSTK_u32GetRemainingTime(void);
+//
+//
+//
+//
+//
+//
+//#endif /* MCAL_STK_STK_INT_H_ */
+
+/*
+ * STK_int.h
+ *
+ *  Created on: Sep 11, 2022
+ *      Author: Mahmoud
+ */
+
+#ifndef MCAL_STK_STK_INT_H_
+#define MCAL_STK_STK_INT_H_
+
+
+void MSTK_voidInit(void);
+
+void MSTK_voidStartTimer(u32 A_u32LoadValue);
+
+void MSTK_voidStopTimer(void);
+
+
+
+void MSTK_voidSetBusyWait(u32 A_u32Ticks);
+
+
+void MSTK_vSetIntervalSingle(u32 A_u32Ticks, void(*CallbackFunc)(void));
+
+void MSTK_vSetIntervalPeriodic(u32 A_u32Ticks, void(*CallbackFunc)(void));
+
+
+u32 MSTK_u32GetElapsedTime(void);
+
+u32 MSTK_u32GetRemainingTime(void);
+
+
+
+
+
+
+#endif /* MCAL_STK_STK_INT_H_ */

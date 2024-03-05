@@ -1,0 +1,40 @@
+18:52:26 **** Incremental Build of configuration Debug for project 01-RCC_driver ****
+make all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "01-RCC_driver.elf"
+   text	   data	    bss	    dec	    hex	filename
+   7147	    160	    416	   7723	   1e2b	01-RCC_driver.elf
+Finished building: 01-RCC_driver.siz
+ 
+18:52:30 **** Incremental Build of configuration Debug for project 01-RCC_driver ****
+make all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "01-RCC_driver.elf"
+   text	   data	    bss	    dec	    hex	filename
+   7147	    160	    416	   7723	   1e2b	01-RCC_driver.elf
+Finished building: 01-RCC_driver.siz
+ 
+18:52:56 **** Incremental Build of configuration Debug for project 01-RCC_driver ****
+make all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "01-RCC_driver.elf"
+   text	   data	    bss	    dec	    hex	filename
+   7147	    160	    416	   7723	   1e2b	01-RCC_driver.elf
+Finished building: 01-RCC_driver.siz
+ 
+18:53:12 **** Incremental Build of configuration Debug for project 01-RCC_driver ****
+make all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "01-RCC_driver.elf"
+   text	   data	    bss	    dec	    hex	filename
+   7147	    160	    416	   7723	   1e2b	01-RCC_driver.elf
+Finished building: 01-RCC_driver.siz
+ 
+18:53:46 **** Incremental Build of configuration Debug for project 01-RCC_driver ****
+make all 
+Invoking: Cross ARM GNU Print Size
+arm-none-eabi-size --format=berkeley "01-RCC_driver.elf"
+   text	   data	    bss	    dec	    hex	filename
+   7147	    160	    416	   7723	   1e2b	01-RCC_driver.elf
+Finished building: 01-RCC_driver.siz
+ 
